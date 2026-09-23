@@ -209,7 +209,7 @@ footer {
   padding-top: 1rem;
 }
 .buy-box {
-  background-color: rgb(196, 206, 212);
+  background-color: rgb(171, 198, 214);
   padding: 1rem;
   text-align: end;
 }
@@ -217,10 +217,16 @@ footer {
   text-align: start;
 }
 select {
-  background-color: rgb(240, 238, 238);
+  background-color: rgb(222, 240, 255);
 }
 button p {
-  background-color: aqua;
+  background-color: rgb(157, 207, 249);
+}
+button p:hover {
+  background-color: rgb(167, 213, 250);
+}
+button p:active {
+  background-color: rgb(132, 186, 231);
 }
 
 /**************** Product done **************/
