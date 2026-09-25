@@ -15,7 +15,7 @@ function showData(products) {
 
   products.forEach((product) => {
     myInnerHtml += `<article class="card ${product.soldout ? "soldout" : ""}">
-                <a href="/product.html">
+                <a href="product.html">
                     <img src="https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp" alt="Billede af ${product.image}">
                 </a>
                 <h3>${product.productdisplayname}}</h3>
