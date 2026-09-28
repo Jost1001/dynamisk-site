@@ -23,7 +23,7 @@ function showData(products) {
                 <div>
                     <p>${product.price} kr</p>
                 </div>
-                <p><a href="/product.html"><b>Læs mere</b></a></p>
+                <p><a href="product.html"><b>Læs mere</b></a></p>
                 <p class="soldout_tag">Udsolgt</p>
             </article>
 `;
