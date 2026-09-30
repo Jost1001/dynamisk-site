@@ -15,10 +15,10 @@ const seasonImages = {
 const categoryImages = {
   Footwear: "img/shoes.jpg",
   Apparel: "img/apparel.jpg",
-  FreeItems: "img/free-stuff.jpg",
-  PersonalCare: "img/personal-care.jpg",
+  "Free Items": "img/free-stuff.jpg",
+  "Personal Care": "img/personal-care.jpg",
   Accessories: "img/jewelry-and-accessories.webp",
-  SportingGoods: "img/sporting-goods.jpg",
+  "Sporting Goods": "img/sporting-goods.jpg",
 };
 
 getData();
@@ -36,7 +36,7 @@ function showData(data) {
   data.forEach((season) => {
     // console.log("seasons", season);
     myInnerHtml += `<article class="season-card">
-    <a href="productlist.html">
+    <a href="productlist.html?season=${season.season}">
     <img src="${seasonImages[season.season] || "img/default.jpg"}" alt="Billede af ${season.season}">
     <h3>${season.season}</h3>
    </a>
@@ -58,7 +58,7 @@ function showData2(dataCat) {
   dataCat.forEach((cat) => {
     // console.log("categori", cat);
     myInnerHtml2 += `<article class="categori-card">
-    <a href="productlist.html">
+    <a href="productlist.html?category=${cat.category}">
     <img src="${categoryImages[cat.category] || "img/default.jpg"}" alt="Billede af ${cat.category}">
     <h3>${cat.category}</h3>
     </a>

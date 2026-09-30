@@ -186,13 +186,24 @@ footer {
   padding: 10px;
   opacity: 100%;
 }
-.discount .after {
-  color: red;
+.discount {
+  position: relative;
 }
-.before {
-  font-style: italic;
+.discount .discount_tag {
+  display: block;
+  position: absolute;
+  background-color: rgb(255, 68, 68);
+  padding: 10px;
+  right: 0;
+  font-weight: 600;
 }
-
+.discount .tilbud {
+  text-decoration: line-through;
+  text-decoration-color: rgb(255, 68, 68);
+}
+.link a:hover {
+  text-decoration: none;
+}
 /**************** Productlist done **************/
 /*  */
 /*  */
@@ -212,12 +223,31 @@ footer {
   background-color: rgb(171, 198, 214);
   padding: 1rem;
   text-align: end;
+  max-height: 17rem;
 }
 .buy {
   text-align: start;
 }
+
+.final-price {
+  font-size: x-large;
+  color: rgb(235, 15, 15);
+  font-weight: bold;
+}
+.offer .big-info {
+  font-size: small;
+  padding-bottom: 1rem;
+  font-weight: 400;
+}
+.big-info {
+  font-size: x-large;
+  font-weight: bold;
+}
 select {
   background-color: rgb(222, 240, 255);
+}
+form {
+  padding-bottom: 1rem;
 }
 button p {
   background-color: rgb(157, 207, 249);
