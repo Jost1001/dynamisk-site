@@ -164,6 +164,19 @@ footer {
 .list_button.selected {
   background-color: rgb(73, 146, 202);
 }
+
+.back_button {
+  background-color: rgb(251, 176, 78);
+  display: inline-block;
+  color: black;
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+  margin: 0.2rem;
+}
+
+.back_button:hover {
+  background-color: rgb(230, 145, 34);
+}
 /************* Knapper til filtrering done  *************/
 /*  */
 /*  */
