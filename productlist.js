@@ -8,11 +8,11 @@ let allData;
 
 let currentUrl = "";
 if (selectedSeason && selectedCategory) {
-  currentUrl = `https://kea-alt-del.dk/t7/api/products?season=${selectedSeason}&category=${selectedCategory}&limit=500`;
+  currentUrl = `https://kea-alt-del.dk/t7/api/products?season=${selectedSeason}&category=${selectedCategory}&limit=200`;
 } else if (selectedSeason) {
-  currentUrl = `https://kea-alt-del.dk/t7/api/products?season=${selectedSeason}&limit=500`;
+  currentUrl = `https://kea-alt-del.dk/t7/api/products?season=${selectedSeason}&limit=200`;
 } else if (selectedCategory) {
-  currentUrl = `https://kea-alt-del.dk/t7/api/products?category=${selectedCategory}&limit=500`;
+  currentUrl = `https://kea-alt-del.dk/t7/api/products?category=${selectedCategory}&limit=200`;
 } else {
   currentUrl = `https://kea-alt-del.dk/t7/api/products`;
 }
