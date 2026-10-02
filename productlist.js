@@ -7,7 +7,9 @@ const productList = document.querySelector(".card_container");
 let allData;
 
 let currentUrl = "";
-if (selectedSeason) {
+if (selectedSeason && selectedCategory) {
+  currentUrl = `https://kea-alt-del.dk/t7/api/products?season=${selectedSeason}&category=${selectedCategory}&limit=500`;
+} else if (selectedSeason) {
   currentUrl = `https://kea-alt-del.dk/t7/api/products?season=${selectedSeason}&limit=500`;
 } else if (selectedCategory) {
   currentUrl = `https://kea-alt-del.dk/t7/api/products?category=${selectedCategory}&limit=500`;
@@ -82,7 +84,16 @@ filterSeasonButtons.forEach((button) => {
     button.classList.add("selected");
   }
   button.addEventListener("click", (evt) => {
-    window.location.href = `productlist.html?season=${evt.target.dataset.season}`;
+    const params = new URLSearchParams(window.location.search);
+
+    if (evt.target.dataset.season === "All") {
+      params.delete("season");
+    } else {
+      params.set("season", evt.target.dataset.season);
+    }
+
+    const queryString = params.toString();
+    window.location.href = queryString ? `productlist.html?${queryString}` : "productlist.html";
   });
 });
 
@@ -93,14 +104,27 @@ filterCategoryButtons.forEach((button) => {
     button.classList.add("selected");
   }
   button.addEventListener("click", (evt) => {
-    window.location.href = `productlist.html?category=${evt.target.dataset.category}`;
+    const params = new URLSearchParams(window.location.search);
+
+    if (evt.target.dataset.category === "All") {
+      params.delete("category");
+    } else {
+      params.set("category", evt.target.dataset.category);
+    }
+
+    const queryString = params.toString();
+    window.location.href = queryString ? `productlist.html?${queryString}` : "productlist.html";
   });
 });
 
 // Filtrering: Sortér
 const sortButtons = document.querySelectorAll(".sort_button");
 sortButtons.forEach((button) => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click", (evt) => {
+    sortButtons.forEach((button) => {
+      button.classList.remove("selected");
+    });
+    evt.target.classList.add("selected");
     const direction = button.textContent.includes("Low") ? "lowToHigh" : "highToLow";
 
     const sortedData = allData.sort((a, b) => {
