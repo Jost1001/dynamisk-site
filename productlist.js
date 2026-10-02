@@ -4,19 +4,118 @@ const selectedSeason = param.get("season");
 const selectedCategory = param.get("category");
 
 const productList = document.querySelector(".card_container");
+let allData;
 
 let currentUrl = "";
 if (selectedSeason) {
-  currentUrl = `https://kea-alt-del.dk/t7/api/products?season=${selectedSeason}`;
+  currentUrl = `https://kea-alt-del.dk/t7/api/products?season=${selectedSeason}&limit=500`;
 } else if (selectedCategory) {
-  currentUrl = `https://kea-alt-del.dk/t7/api/products?category=${selectedCategory}`;
+  currentUrl = `https://kea-alt-del.dk/t7/api/products?category=${selectedCategory}&limit=500`;
 } else {
   currentUrl = `https://kea-alt-del.dk/t7/api/products`;
 }
 
 function getData() {
-  fetch(currentUrl).then((result) => result.json().then((data) => showData(data)));
+  fetch(currentUrl).then((result) =>
+    result.json().then((data) => {
+      showData(data);
+      allData = data;
+    }),
+  );
 }
+
+document.querySelector(".back_button").addEventListener("click", (event) => {
+  window.history.back();
+});
+
+// Filtrering: Gender
+const filterGenderButtons = document.querySelectorAll(".gender div");
+filterGenderButtons.forEach((button) => {
+  button.addEventListener("click", (evt) => {
+    filterGenderButtons.forEach((button) => {
+      button.classList.remove("selected");
+    });
+    evt.target.classList.add("selected");
+
+    if (evt.target.dataset.filter === "All") {
+      showData(allData);
+    } else {
+      const filter = allData.filter((product) => product.gender === evt.target.dataset.filter);
+      showData(filter);
+    }
+  });
+});
+
+// Filtrering: Discount
+const filterDiscountButtons = document.querySelectorAll(".discount-class div");
+
+filterDiscountButtons.forEach((button) => {
+  button.addEventListener("click", (evt) => {
+    filterDiscountButtons.forEach((button) => {
+      button.classList.remove("selected");
+    });
+    evt.target.classList.add("selected");
+    const selectedDiscount = evt.target.dataset.discount;
+
+    if (selectedDiscount === "All") {
+      showData(allData);
+      return;
+    }
+
+    if (selectedDiscount === "No-discount") {
+      const filter = allData.filter((product) => !product.discount);
+      showData(filter);
+      return;
+    }
+
+    if (selectedDiscount === "Discount") {
+      const filter = allData.filter((product) => product.discount);
+      showData(filter);
+    }
+  });
+});
+
+// Filtrering: Seasons
+const filterSeasonButtons = document.querySelectorAll(".toj_season div");
+filterSeasonButtons.forEach((button) => {
+  if (button.dataset.season === selectedSeason) {
+    button.classList.add("selected");
+  }
+  button.addEventListener("click", (evt) => {
+    window.location.href = `productlist.html?season=${evt.target.dataset.season}`;
+  });
+});
+
+// Filtrering: Categories
+const filterCategoryButtons = document.querySelectorAll(".toj_category div");
+filterCategoryButtons.forEach((button) => {
+  if (button.dataset.category === selectedCategory) {
+    button.classList.add("selected");
+  }
+  button.addEventListener("click", (evt) => {
+    window.location.href = `productlist.html?category=${evt.target.dataset.category}`;
+  });
+});
+
+// Filtrering: Sortér
+const sortButtons = document.querySelectorAll(".sort_button");
+sortButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const direction = button.textContent.includes("Low") ? "lowToHigh" : "highToLow";
+
+    const sortedData = allData.sort((a, b) => {
+      const actualPriceA = a.discount ? getDiscountPrice(a.price, a.discount) : a.price;
+      const actualPriceB = b.discount ? getDiscountPrice(b.price, b.discount) : b.price;
+
+      if (direction === "lowToHigh") {
+        return actualPriceA - actualPriceB;
+      }
+      return actualPriceB - actualPriceA;
+    });
+    showData(sortedData);
+  });
+});
+
 function showData(products) {
   //   console.log(data);
   productList.innerHTML = "";

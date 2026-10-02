@@ -17,12 +17,18 @@ function loadData(url) {
     });
   });
 }
+document.querySelector(".back_button").addEventListener("click", (event) => {
+  window.history.back();
+});
 
 function showDetails(detail) {
   productContainer.innerHTML = "";
 
-  productContainer.innerHTML += `  <img src="https://kea-alt-del.dk/t7/images/webp/640/${detail.id}.webp" alt="Product image">
-            <div class="product_information">
+  productContainer.innerHTML += ` <div class="product-image-wrap ${detail.soldout ? "soldout" : ""}">
+  <img src="https://kea-alt-del.dk/t7/images/webp/640/${detail.id}.webp" alt="Product image">
+  ${detail.soldout ? '<p class="soldout_tag">Udsolgt</p>' : ""}
+</div>
+  <div class="product_information">
                 <h2>Information om produktet</h2>
                 <h4>Model</h4>
                 <p>${detail.productdisplayname}</p>
